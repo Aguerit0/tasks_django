@@ -3,6 +3,8 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User # para registrar usuarios
 from django.db import IntegrityError
 from django.contrib.auth import login, logout, authenticate
+from .forms import TaskForm
+from .models import Task
 # Create your views here.
 
 def home(request):
@@ -45,8 +47,30 @@ def signup(request):
 
 
 def tasks(request):
-    return render(request, "task.html")
+    Task.objects.all().filter(user=request.user)
+    return render(request, "task.html", {
+        "tasks": Task.objects.all().order_by('-date_completed')
+    })
+    
 
+def createTask(request):
+    if request.method == "GET":
+        return render(request, "create_task.html",{
+        "form": TaskForm
+    })
+    else:
+        try:
+            form = TaskForm(request.POST) # crear un form con los datos ingresados por el usuario
+            if form.is_valid():
+                form = form.save(commit=False)
+                form.user = request.user
+                form.save()
+                return redirect("tasks")
+        except ValueError:
+            return render(request, "create_task.html",{
+                "form": TaskForm,
+                "error": "Error al crear la tarea"
+            })
 
 def signout(request):
     logout(request)
