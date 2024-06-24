@@ -3,6 +3,19 @@
 
 
 {% block content %}
-<h1>Home</h1>
-<p>Lorem ipsum dolor sit m?</p>
+<main class="container py-5">
+    <section class="card card-body">
+        <h1 class="display-1 text-center">Django Tasks App</h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe maiores cumque quos obcaecati mollitia reprehenderit, quod maxime eaque iure suscipit soluta, quia dolores, fugit nihil quas accusamus molestias dolorum ducimus.</p>
+        <div class="text-center">
+            <a class="btn btn-secondary" href="{% url 'signin' %}">Iniciar Sesion</a>
+            </a>
+            <a class="btn btn-dark" href="{% url 'signup' %}">Registrarse</a>
+            </a>
+        </div>
+        
+    </section>
+</main>
+
+
 {% endblock %}

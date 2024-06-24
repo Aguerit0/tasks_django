@@ -1,20 +1,20 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Task</h1>
+<main class="container">
+    <div class="row">
+        <div class="col-md-4 offset-md-4 mt-5">
+            <h1 class="text-center">Tareas Pendientes</h1>
+            <ul class="list-group">
 
-<ul>
-    {% for task in tasks %}
-        <li>
-            <h1>{{task.title}}</h1>
-            <p>{{task.description}}</p>
-            <p>{{task.created}}</p>
-            <p>{{task.date_completed}}</p>
-            <p>{{task.important}}</p>
-            <p><b>Creado por:</b> {{task.user.username}}</p>
-        </li>
-    {% endfor %}
-</ul>
-
-
-<a href="/task/create/">Crear Tarea</a>
+                {% for task in tasks %}
+                    <a href="{% url 'task_detail' task.id %}" class="list-group-item">
+                            <h1>{{task.title}}</h1>
+                            <p>{{task.date_completed|date:"d/m/Y"}}</p>
+                        </a>
+                    </a>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</main>
 {% endblock %}
