@@ -3,15 +3,21 @@
 <main class="container">
     <div class="row">
         <div class="col-md-4 offset-md-4 mt-5">
-            <h1 class="text-center">Tareas Pendientes</h1>
+            <h1 class="text-center display-3">Tareas</h1>
             <ul class="list-group">
 
                 {% for task in tasks %}
-                    <a href="{% url 'task_detail' task.id %}" class="list-group-item">
-                            <h1>{{task.title}}</h1>
-                            <p>{{task.date_completed|date:"d/m/Y"}}</p>
-                        </a>
-                    </a>
+                <a href="{% url 'task_detail' task.id %}" class="list-group-item">
+                    <header class="d-flex justify-content-between">
+                        {% if task.important %}
+                        <h1 class="font-weight-bold text-danger">{{task.title}}</h1>
+                        {% else %}
+                        <h1 class="font-weight-normal text-muted">{{task.title}}</h1>
+                        {% endif %}
+                        <p>{{task.user.username}}</p>
+                        <p>{{task.date_completed|date:"d/m/Y"}}</p>
+                    </header>
+                </a>
                 {% endfor %}
             </ul>
         </div>
